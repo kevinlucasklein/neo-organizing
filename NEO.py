@@ -16,14 +16,13 @@ class ModernWin11GUI:
         self.root = root
         self.root.title("NEO uNID Processor")
         
-        # Enable DWM blur behind effect (Windows 11 Mica effect)
         try:
-            # Load Azure theme with dark mode for better glass effect
+
             self.root.tk.call('source', 'azure.tcl')
             self.root.tk.call('set_theme', 'dark')
             
             # Configure transparency
-            self.root.attributes('-alpha', 0.97)  # Slight transparency
+            self.root.attributes('-alpha', 0.97)  
             
             # Enable Windows 11 Mica effect
             DWMWA_USE_IMMERSIVE_DARK_MODE = 20
@@ -33,7 +32,7 @@ class ModernWin11GUI:
                 hwnd, DWMWA_MICA_EFFECT,
                 ctypes.byref(ctypes.c_int(1)), ctypes.sizeof(ctypes.c_int)
             )
-            # Enable dark mode for better glass effect
+
             ctypes.windll.dwmapi.DwmSetWindowAttribute(
                 hwnd, DWMWA_USE_IMMERSIVE_DARK_MODE,
                 ctypes.byref(ctypes.c_int(1)), ctypes.sizeof(ctypes.c_int)
@@ -42,7 +41,7 @@ class ModernWin11GUI:
             pass
         
         # Set window size and position
-        window_width = 900  # Slightly wider for better aesthetics
+        window_width = 900  
         window_height = 650
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
@@ -52,13 +51,12 @@ class ModernWin11GUI:
         self.root.minsize(900, 650)
         
         # Configure modern style
-        self.root.config(bg='#1c1c1c')  # Dark background for glass effect
+        self.root.config(bg='#1c1c1c')  
         
         # Create main container with padding
         self.container = ttk.Frame(root)
         self.container.pack(fill=tk.BOTH, expand=True, padx=40, pady=30)
         
-        # Create header frame with glass effect
         header_frame = ttk.Frame(self.container, style='Glass.TFrame')
         header_frame.pack(fill=tk.X, pady=(0, 30))
         
@@ -108,7 +106,6 @@ class ModernWin11GUI:
         )
         icon_label.pack(pady=(0, 25))
         
-        # Create and configure drop zone label (now just visual, not functional)
         self.drop_label = ttk.Label(
             self.content_frame,
             text="Drag Excel File Here",
@@ -116,7 +113,6 @@ class ModernWin11GUI:
         )
         self.drop_label.pack()
         
-        # Add "or" separator with fade effect
         separator_label = ttk.Label(
             self.content_frame,
             text="or",
@@ -124,7 +120,6 @@ class ModernWin11GUI:
         )
         separator_label.pack(pady=15)
         
-        # Add modern glass button
         self.browse_button = ttk.Button(
             self.content_frame,
             text="Browse Files",
@@ -133,7 +128,6 @@ class ModernWin11GUI:
         )
         self.browse_button.pack(pady=10)
         
-        # Create status bar with glass effect
         self.status_frame = ttk.Frame(self.container, style="GlassStatus.TFrame")
         self.status_frame.pack(fill=tk.X, pady=(20, 0))
         
@@ -144,7 +138,6 @@ class ModernWin11GUI:
         )
         self.status_label.pack(side=tk.LEFT, padx=15, pady=8)
         
-        # Configure styles and bind events
         self.configure_styles()
         self.bind_events()
 
@@ -152,10 +145,10 @@ class ModernWin11GUI:
         style = ttk.Style()
         
         # Modern glass effect colors
-        accent_color = '#60cdff'  # Bright blue for accents
-        glass_bg = '#2c2c2c'      # Dark background
-        glass_fg = '#ffffff'      # White text
-        glass_secondary = '#cccccc'  # Light gray
+        accent_color = '#60cdff'  
+        glass_bg = '#2c2c2c'      
+        glass_fg = '#ffffff'      
+        glass_secondary = '#cccccc' 
         
         # Glass frame styles
         style.configure(
@@ -170,7 +163,6 @@ class ModernWin11GUI:
             relief="solid"
         )
         
-        # Glass label styles
         style.configure(
             "Glass.TLabel",
             font=('Segoe UI', 24),
@@ -213,14 +205,12 @@ class ModernWin11GUI:
             background=glass_bg
         )
         
-        # Configure button with glass effect
         style.configure(
             "Accent.TButton",
             font=('Segoe UI', 12),
             padding=15
         )
         
-        # Status bar with glass effect
         style.configure(
             "GlassStatus.TFrame",
             background=glass_bg,
@@ -235,7 +225,6 @@ class ModernWin11GUI:
             background=glass_bg
         )
         
-        # Hover effects
         style.map("GlassCard.TFrame",
                  background=[('active', '#353535')],
                  relief=[('active', 'solid')],
@@ -246,20 +235,19 @@ class ModernWin11GUI:
                  foreground=[('active', '#000000')])
 
     def bind_events(self):
-        # The drop zone bindings are now on the drop_frame instead of the label
         self.drop_frame.bind('<Enter>', self.on_hover_enter)
         self.drop_frame.bind('<Leave>', self.on_hover_leave)
 
     def on_hover_enter(self, event):
         """Handle mouse enter with glow effect"""
         self.drop_frame.configure(style="GlassCard.TFrame")
-        self.drop_label.configure(foreground='#60cdff')  # Changed from drop_zone to drop_label
+        self.drop_label.configure(foreground='#60cdff')  
         self.root.config(cursor="hand2")
 
     def on_hover_leave(self, event):
         """Handle mouse leave"""
         self.drop_frame.configure(style="GlassCard.TFrame")
-        self.drop_label.configure(foreground='#ffffff')  # Changed from drop_zone to drop_label
+        self.drop_label.configure(foreground='#ffffff')  
         self.root.config(cursor="")
 
     def get_previous_monday(self):
@@ -334,7 +322,6 @@ class ModernWin11GUI:
             ws[f'A{i}'] = id_value
 
         # Set all columns to width 8.43
-        # Adjusted value to achieve exactly 8.43 in Excel
         for col in ['A', 'B', 'C', 'D', 'E', 'F']:
             ws.column_dimensions[col].width = 9.14
 
